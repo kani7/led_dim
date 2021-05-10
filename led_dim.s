@@ -51,23 +51,18 @@ mfp_wait:
 	move.l	#$7f,D1			* 0x7fでLED全点灯
 	IOCS	_LEDCTRL
 
-	DOS	_GETTIM2		* 1秒+α待つための1ループ目
-wait2sec1:
+	move.l	#0,D2
+	DOS	_GETTIM2
+wait_sec:
 	DOS	_GETTIM2
 	move.l	(SP)+,D1
 	move.l	(SP),D0
 	cmp.l	D0,D1
-	bne	wait2sec1
+	bne	wait_sec
 	add.l	#4,SP
-
-	DOS	_GETTIM2		* 1秒+α待つための2ループ目
-wait2sec2:
-	DOS	_GETTIM2
-	move.l	(SP)+,D1
-	move.l	(SP),D0
-	cmp.l	D0,D1
-	bne	wait2sec2
-	add.l	#4,SP
+	add.b	#1,D2
+	cmp.b	#2,D2
+	bcs	wait_sec
 
 	IOCS	_LEDSET			* LEDの点灯箇所を元に戻す
 	DOS	_EXIT
