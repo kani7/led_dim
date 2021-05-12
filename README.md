@@ -31,7 +31,8 @@ CompactŒnˆÈŠO‚ÌX680x0‚ÌƒL[ƒ{[ƒh‚ÍAƒL[ƒ{[ƒhƒRƒ“ƒgƒ[ƒ‰‚É“dŒ¹‚ª“ü‚Á‚½Žž‚É‰½‚
 
 ## ƒrƒ‹ƒh•û–@
 XC2.1‚ðŽg‚Á‚Ä‚¢‚Ü‚·‚ªA€‹’‚·‚éƒAƒZƒ“ƒuƒ‰/ƒŠƒ“ƒJ‚È‚ç–â‘è‚ ‚è‚Ü‚¹‚ñB  
-`as led_dim.s` ‚É‘±‚¯‚Ä `lk led_dim.o` ‚ÅŽÀsƒtƒ@ƒCƒ‹‚ª“¾‚ç‚ê‚é”¤‚Å‚·B
+`as led_dim.s` ‚É‘±‚¯‚Ä `lk led_dim.o` ‚ÅŽÀsƒtƒ@ƒCƒ‹‚ª“¾‚ç‚ê‚é”¤‚Å‚·B  
+.r Œ`Ž®‚ÌŽÀsƒtƒ@ƒCƒ‹‚ª•K—v‚È‚çAã‹L‚É‘±‚¯‚Ä `cv led_dim.x` ‚Æ‚µ‚Ä‚­‚¾‚³‚¢B
 
 ## ŽÓŽ«
 ì¬‚É‚ ‚½‚Á‚ÄˆÈ‰º‚Ì‘Ð‚ðŽQÆ‚µ‚Ü‚µ‚½B  
