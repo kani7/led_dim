@@ -78,7 +78,7 @@ help:
 help_msg:
 	dc.b	'Usage: led_dim [LED dimming]',$0d,$0a
 	dc.b	'Function: Keyboard LED dimmer',$0d,$0a
-	dc.b	$09,'Specify LED dimming knob from 0 (brighter) to 3 (darker)',$0d,$0a
+	dc.b	$09,'Specify LED dimming knob from 0 (brighter) to 3 (darker)',$0d,$0a,$00
 	.even
 
 	.stack
