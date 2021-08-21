@@ -2,6 +2,7 @@
 *   by kani7
 *   GPL2.0
 *   2021-05-09 多分動く版
+*	2021-08-21 RTCが故障している場合にハングアップしてしまう問題の仮対処
 
 	.include	DOSCALL.MAC
 	.include	IOCSCALL.MAC
@@ -51,18 +52,20 @@ mfp_wait:
 	move.l	#$7f,D1			* 0x7fでLED全点灯
 	IOCS	_LEDCTRL
 
-	move.l	#0,D2
-	DOS	_GETTIM2
-wait_sec:
-	DOS	_GETTIM2
-	move.l	(SP)+,D1
-	move.l	(SP),D0
-	cmp.l	D0,D1
-	bne	wait_sec
-	add.l	#4,SP
-	add.b	#1,D2
-	cmp.b	#2,D2
-	bcs	wait_sec
+*	RTCが(トリマコンデンサ不良等で)進まない場合にハングアップしてしまうのでコメントアウト
+*	何か代案があれば教えてください
+*	move.l	#0,D2
+*	DOS	_GETTIM2
+*wait_sec:
+*	DOS	_GETTIM2
+*	move.l	(SP)+,D1
+*	move.l	(SP),D0
+*	cmp.l	D0,D1
+*	bne	wait_sec
+*	add.l	#4,SP
+*	add.b	#1,D2
+*	cmp.b	#2,D2
+*	bcs	wait_sec
 
 	IOCS	_LEDSET			* LEDの点灯箇所を元に戻す
 	DOS	_EXIT
