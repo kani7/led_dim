@@ -1,48 +1,61 @@
-# X680x0�̃L�[�{�[�hLED�̋P�x��ύX����
+# X680x0のキーボードLEDの輝度を変更する
 
-## �T�v
-X680x0�̃L�[�{�[�hLED�̋P�x���R�}���h���C������ύX���܂��B
+## 概要
+X680x0のキーボードLEDの輝度をコマンドラインから変更します。
 
-## �g����
-������0�`3�̐��l��^���Ď��s���܂��B
-������^���Ȃ��ꍇ�̓w���v���b�Z�[�W���\������܂��B
-- �ő�P�x  
-`led_dim 0`  
-- �ŏ��P�x  
-`led_dim 3`  
+## 使い方
+引数に0～3の数値を与えて実行します。
+引数を与えない場合はヘルプメッセージが表示されます。
+- 最大輝度  
+	```
+	led_dim 0
+	```  
+- 最小輝度  
+	```
+	led_dim 3
+	```  
 
-## �⑫
-Compact�n�ȊO��X680x0�̃L�[�{�[�h�́A�L�[�{�[�h�R���g���[���ɓd�������������ɉ��̃L�[�������Ă���/�����Ă��Ȃ��������ɂ���āA�L�[�{�[�hLED�̋P�x��ύX���邱�Ƃ��ł��܂��B
-| �����L�[ | LED�P�x |
+## 補足
+Compact系以外のX680x0のキーボードは、キーボードコントローラに電源が入った時に何のキーを押していた/押していなかったかによって、キーボードLEDの輝度を変更することができます。
+| 押すキー | LED輝度 |
 |---|---|
-| ���������Ȃ� | ���邢 |
-| XF3 | �������邢 |
-| XF4 | �����Â� |
-| XF5 | �Â� |
+| 何も押さない | 明るい |
+| XF3 | 少し明るい |
+| XF4 | 少し暗い |
+| XF5 | 暗い |
 
-�L�[�{�[�h�R���g���[���ɓd��������^�C�~���O�ł����A�ȉ��̂悤�ɂȂ�܂��B
-- Compact�n�ȊO�̋@��ł̓L�[�{�[�h�P�[�u����{�̂ɐڑ�������
-- Compact�n�̋@��͖{�̂̓d������������
+キーボードコントローラに電源が入るタイミングですが、以下のようになります。
+- Compact系以外の機種ではキーボードケーブルを本体に接続した時
+- Compact系の機種は本体の電源が入った時
 
-�ł����AX68030 Compact�ł�POST�r����XF3�`XF5�̏�Ԃ�ǂݎ��V�X�e���̑��x�����肵�Ă��邽�߁ACompact�p�̃L�[�{�[�h�ł͏�L�̕��@�͎g���Ȃ��Ǝv���܂�(�v����)�B
+ですが、X68030 CompactではPOST途中でXF3～XF5の状態を読み取りシステムの速度を決定しているため、Compact用のキーボードでは上記の方法は使えないと思われます(要検証)。
 
-���āA�L�[�{�[�hLED�̓_����Ԃ�P�x�̕ύX��X680x0�{�̂�����s�����Ƃ��ł��܂��B  
-���̃v���O�����͂�����������邽�߂̂��̂ł��B
+さて、キーボードLEDの点灯状態や輝度の変更はX680x0本体からも行うことができます。  
+このプログラムはこれを実現するためのものです。
 
-## �r���h���@
-XC2.1���g���Ă��܂����A��������A�Z���u��/�����J�Ȃ��肠��܂���B  
-`as led_dim.s` �ɑ����� `lk led_dim.o` �Ŏ��s�t�@�C���������锤�ł��B  
-.r �`���̎��s�t�@�C�����K�v�Ȃ�A��L�ɑ����� `cv led_dim.x` �Ƃ��Ă��������B
+## ビルド方法
+XC2.1を使っていますが、準拠するアセンブラ/リンカなら問題ありません。
+```
+as led_dim.s
+lk led_dim.o
+```
+で実行ファイルが得られる筈です。
 
-## �ӎ�
-�쐬�ɂ������Ĉȉ��̏��Ђ��Q�Ƃ��܂����B  
+.r 形式の実行ファイルが必要なら、上記に続けて
+```
+cv led_dim.x
+```
+としてください。
+
+## 謝辞
+作成にあたって以下の書籍を参照しました。  
 - Inside X68000  (ISBN4-89052-304-9)  
-����ȑO�ɂ����l�̏����L�������Ђ͗L�����悤�Ȃ̂ł����A�������ւ̎肪�����ԗ������{�͏��Ȃ��A���҂̕��X�ƁA�������ɂ���K�^�Ɍb�܂ꂽ���Ƃ����ӂ��܂��B
+これ以前にも同様の情報を記した書籍は有ったようなのですが、それら情報への手がかりを網羅した本は少なく、著者の方々と、これを手にする幸運に恵まれたことを感謝します。
 
-�쐬�ɂ������Ď�Ɉȉ��̃c�[�����g�p�����Ă��������܂����B  
-�֌W����F�l�ɂ͐[�����Ӑ\���グ�܂��B
+作成にあたって主に以下のツールを使用させていただきました。  
+関係する皆様には深く感謝申し上げます。
 
-- �������J���ꂽ�V���[�v�̃\�t�g�E�F�A  
+- 無償公開されたシャープのソフトウェア  
 	http://retropc.net/x68000/software/sharp/
 - XM6g  
 	http://retropc.net/pi/xm6/
@@ -56,9 +69,13 @@ XC2.1���g���Ă��܂����A��������A�Z���u��/�����J�Ȃ��肠��܂���B
 ## Usage
 Specify LED dimming knob from 0 (brighter) to 3 (darker).
 - maximum brightness  
-`led_dim 0`  
+	```
+	led_dim 0
+	```  
 - minimum brightness  
-`led_dim 3` 
+	```
+	led_dim 3
+	``` 
 
 ## Note
 May not work on Keyboard for X680x0 'Compact' models.
