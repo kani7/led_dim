@@ -2,14 +2,15 @@
 *   by kani7
 *   GPL2.0
 *   2021-05-09 多分動く版
-*	2021-08-21 RTCが故障している場合にハングアップしてしまう問題の仮対処
+*   2021-08-21 RTCが故障している場合にハングアップしてしまう問題の仮対処
+*   2023-06-11 ヘルプでの引数の意味を逆に表示していたのを修正
 
 	.include	DOSCALL.MAC
 	.include	IOCSCALL.MAC
 
 *IOCS_STAT	equ $0000_0a0e		* 実行中のIOCSコール番号を示すワーク(-1で何も実行していない)
 MFP_TSR		equ $00e8_802d		* MFPのTSR(送信状態レジスタ)
-*MFP_TSR_BE	equ 7			* MFPのTSRのBEフラグの位置(bit7)
+*MFP_TSR_BE	equ 7				* MFPのTSRのBEフラグの位置(bit7)
 MFP_UDR		equ $00e8_802f		* MFPのUDR(送信データレジスタ)
 *BRIGHT_CMD	equ %0101_0100		* キーボードLED輝度変更コマンド
 
@@ -45,12 +46,12 @@ mfp_wait:
 	lea.l	MFP_TSR,A1		* MFPのTSRの
 	IOCS	_B_BPEEK		*
 	btst.l	#7,D0			*	BEフラグ(bit7)を確認する
-	beq	mfp_wait		* 送信バッファが空でなければループして待つ
+	beq		mfp_wait		* 送信バッファが空でなければループして待つ
 	lea.l	MFP_UDR,A1		* MFPのUDRに
 	IOCS	_B_BPOKE		*	LED輝度制御コマンド(D1)を書き込む
 
-	move.l	#$7f,D1			* 0x7fでLED全点灯
-	IOCS	_LEDCTRL
+*	move.l	#$7f,D1			* 0x7fでLED全点灯
+*	IOCS	_LEDCTRL
 
 *	RTCが(トリマコンデンサ不良等で)進まない場合にハングアップしてしまうのでコメントアウト
 *	何か代案があれば教えてください
@@ -67,7 +68,7 @@ mfp_wait:
 *	cmp.b	#2,D2
 *	bcs	wait_sec
 
-	IOCS	_LEDSET			* LEDの点灯箇所を元に戻す
+*	IOCS	_LEDSET			* LEDの点灯箇所を元に戻す
 	DOS	_EXIT
 
 help:
@@ -81,7 +82,7 @@ help:
 help_msg:
 	dc.b	'Usage: led_dim [LED dimming]',$0d,$0a
 	dc.b	'Function: Keyboard LED dimmer',$0d,$0a
-	dc.b	$09,'Specify LED dimming knob from 0 (brighter) to 3 (darker)',$0d,$0a,$00
+	dc.b	$09,'Specify LED dimming knob from 0 (darker) to 3 (brighter)',$0d,$0a,$00
 	.even
 
 	.stack
@@ -89,3 +90,4 @@ help_msg:
 user_stack:
 
 	.end	start
+
